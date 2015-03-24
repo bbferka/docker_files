@@ -1,8 +1,8 @@
-FROM knowrob/indigo-knowrob-interactive
+FROM bbferka/indigo-knowrob-interactive
 MAINTAINER Ferenc Balint-Benczedi, balintbe@cs.uni-bremen.de
 
 USER root
-RUN sudo echo 'Acquire::http { Proxy "http://172.17.42.1:3142"; };' >> /etc/apt/apt.conf.d/01proxy
+#RUN sudo echo 'Acquire::http { Proxy "http://172.17.42.1:3142"; };' >> /etc/apt/apt.conf.d/01proxy
 #RUN apt-get -y update && apt-get -y install wget apt-utils
 
 
@@ -55,8 +55,6 @@ ENV PATH /home/ros/custom_pkgs/devel/bin:/opt/ros/indigo/bin:.:/usr/local/sbin:/
 
 # set post-build variables:
 ENV ROS_PACKAGE_PATH /home/ros/custom_pkgs/src:/home/ros/system_pkgs/src:/opt/ros/indigo/share:/opt/ros/indigo/stacks
-#ENV CMAKE_PREFIX_PATH /home/ros/custom_pkgs/devel:/opt/ros/indigo
-#ENV PKG_CONFIG_PATH /home/ros/custom_pkgs/devel/lib/pkgconfig:/opt/ros/indigo/lib/pkgconfig
 ENV ROS_MASTER_URI http://localhost:11311 
 ENV ROS_MAVEN_DEPLOYMENT_REPOSITORY /home/ros/custom_pkgs/devel/share/maven
 ENV ROS_MAVEN_PATH /home/ros/custom_pkgs/devel/share/maven:/opt/ros/indigo/share/maven
@@ -75,12 +73,6 @@ ENV APR_HOME=/usr
 ENV ICU_HOME=/usr
 ENV XERCES_HOME=/usr
 ENV JAVA_INCLUDE=/usr/lib/jvm/default-java/include
-
-##xstow not needed if I can get root access when installing compiled libs
-#ENV CPATH /home/ros/local/include:/home/ros/local/usr/include
-#ENV LDFLAGS -L/home/ros/local/lib
-#ENV PKG_CONFIG_PATH /home/ros/local/lib/pkgconfig
-#ENV CMAKE_INCLUDE_PATH /home/ros/local/include:/home/ros/local/usr/include:/opt/ros/indigo/include
 ENV CMAKE_LIBRARY_PATH /home/ros/custom_pkgs/devel/lib:/opt/ros/indigo/lib:/usr/lib/jvm/default-java/jre/lib/amd64:/usr/lib/jvm/default-java/jre/lib/amd64/server:/opt/ros/indigo/lib/python2.7/dist-packages:/home/ros/local/lib:/home/ros/local/usr/lib
 
 ############## setup library dependencies for RoboSherlock ####################
@@ -110,3 +102,4 @@ WORKDIR /home/ros/custom_pkgs
 # build the catkin workspace
 RUN /opt/ros/indigo/bin/catkin_make
 
+EXPOSE 1111 9090
