@@ -78,12 +78,6 @@ RUN cp /opt/ros/indigo/setup.sh /etc/profile.d/ros_indigo.sh && \
 
 WORKDIR /home/ros
 USER ros
-#RUN chown -R ros:ros /home/ros && \
-#    rosdep update && \
-#    echo "export LD_LIBRARY_PATH=/usr/lib/jvm/default-java/jre/lib/amd64:/usr/lib/jvm/default-java/jre/lib/amd64/server" >> /home/ros/.bashrc && \
-#    echo "export JAVA_HOME=/usr/lib/jvm/default-java" >> /home/ros/.bashrc && \
-#    echo "source /home/ros/ros_ws/devel/setup.bash" >> /home/ros/.bashrc && \
-#    echo "source /home/ros/.bashrc" >> /home/ros/.bash_profile 
 
 ENV CMAKE_PREFIX_PATH /home/ros/ros_ws/devel:/opt/ros/indigo
 ENV PKG_CONFIG_PATH /home/ros/ros_ws/devel/lib/pkgconfig:/opt/ros/indigo/lib/pkgconfig
@@ -105,11 +99,3 @@ WORKDIR /home/ros/local/src/mongo-cxx-driver
 RUN scons --full --use-system-boost --prefix=/home/ros/local/xstow/mongoclient --ssl --sharedclient install-mongoclient
 WORKDIR /home/ros/local/xstow
 RUN xstow uimacpp && xstow mongoclient
-
-# forward ports: KnowRob webserver + rosbridge
-#EXPOSE 1111 9090
-
-# Volumes for mounting data containers
-#VOLUME /home/ros/knowrob_data
-#VOLUME /home/ros/sandbox
-
