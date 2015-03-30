@@ -17,7 +17,7 @@ RUN git clone --recursive https://github.com/knowrob/knowrob.git -b indigo-devel
     git clone https://github.com/code-iai/iai_photo.git && \
     git clone https://github.com/bbferka/knowrob_robosherlock.git
 
-#for now we just copy them in, it's faster
+#copy RS to workspace
 COPY private_repos /home/ros/ros_ws/src
 USER root
 RUN chown -R ros:ros /home/ros/ros_ws

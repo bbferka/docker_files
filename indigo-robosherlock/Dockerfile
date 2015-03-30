@@ -28,10 +28,8 @@ ENV ICU_HOME /usr
 ENV XERCES_HOME /usr
 ENV USER ros
 
-USER root
-RUN rosdep init && rosdep update
+RUN rosdep update
  
-USER ros
 WORKDIR /home/ros/ros_ws
 RUN /opt/ros/indigo/bin/catkin_make
 
@@ -40,4 +38,4 @@ EXPOSE 1111 9090
 VOLUME /home/ros/knowrob_data
 VOLUME /home/ros/sandbox
 
-ENTRYPOINT /opt/ros/indigo/bin/roslaunch iai_rs_cpp openeas_robosherlock.launch
+ENTRYPOINT /opt/ros/indigo/bin/roslaunch iai_rs_cpp openease_robosherlock.launch
