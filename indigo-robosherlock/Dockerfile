@@ -1,4 +1,4 @@
-FROM bbferka/indigo-rosws-base
+FROM robosherlock/indigo-rosws-base
 MAINTAINER Ferenc Balint-Benczedi, balintbe@cs.uni-bremen.de
 
 #set ENV variables
@@ -28,14 +28,10 @@ ENV ICU_HOME /usr
 ENV XERCES_HOME /usr
 ENV USER ros
 
-RUN rosdep update
- 
+RUN rosdep update 
 WORKDIR /home/ros/ros_ws
 RUN /opt/ros/indigo/bin/catkin_make
 
-EXPOSE 1111 9090
-
-VOLUME /home/ros/knowrob_data
-VOLUME /home/ros/sandbox
-
-ENTRYPOINT /opt/ros/indigo/bin/roslaunch iai_rs_cpp openease_robosherlock.launch
+#prepare the environmental variables
+#RUN echo source /home/ros/ros_ws/devel/setup.bash >>/home/ros/.bashrc && \
+#    echo source /home/ros/.bashrc >>/home/ros/.bash_profile

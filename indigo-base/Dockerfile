@@ -43,6 +43,7 @@ RUN apt-get -y update && apt-get -y install wget apt-utils && \
                 ros-indigo-pcl-ros \
                 ros-indigo-pcl-conversions \
                 ros-indigo-tf-conversions \
+                ros-indigo-web-video-server \
                 ros-indigo-self-test \
                 swi-prolog \
                 swi-prolog-java \

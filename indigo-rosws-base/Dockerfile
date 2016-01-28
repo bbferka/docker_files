@@ -1,4 +1,4 @@
-FROM bbferka/indigo-base
+FROM robosherlock/indigo-base
 MAINTAINER Ferenc Balint-Benczedi, balintbe@cs.uni-bremen.de
 
 # ensure to be in the right working directory:
@@ -7,24 +7,18 @@ USER ros
 
 # dummy 'add' command to always check out the repositories
 ADD ./Dockerfile /home/ros/src/
-RUN git clone --recursive https://github.com/knowrob/knowrob.git -b indigo-devel && \
-    git clone --recursive https://github.com/knowrob/knowrob_addons.git -b indigo-devel && \
-    git clone --recursive https://github.com/code-iai/knowrob_dev.git && \
+RUN git clone --recursive https://github.com/knowrob/knowrob.git && \
     git clone https://github.com/code-iai/iai_maps.git && \
     git clone https://github.com/code-iai/iai_common_msgs.git && \
-    git clone https://github.com/code-iai/iai_cad_tools.git && \
     git clone https://github.com/code-iai/designator_integration.git && \
-    git clone https://github.com/code-iai/iai_photo.git && \
-    git clone https://github.com/bbferka/knowrob_robosherlock.git
+    git clone https://github.com/RoboSherlock/robosherlock.git 
 
-#copy RS to workspace
+#copy private repos to workspace
 COPY private_repos /home/ros/ros_ws/src
+WORKDIR /home/ros/ros_ws/src/knowrob/knowrob_vis/html/lib
+RUN git pull origin master
 USER root
 RUN chown -R ros:ros /home/ros/ros_ws
 USER ros
 
-#WORKDIR /home/ros/ros_ws
-# copy PR2 meshes into docroot
-# RUN mkdir -p /home/ros/knowrob/knowrob_vis/html/pr2_description/meshes
-# RUN cp -r /opt/ros/indigo/share/pr2_description/meshes/* /home/ros/knowrob/knowrob_vis/html/pr2_description/meshes/
 
